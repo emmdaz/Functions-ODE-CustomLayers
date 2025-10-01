@@ -1,8 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
 
 import tensorflow as tf
 from tensorflow import keras
@@ -12,10 +7,6 @@ from tensorflow.keras.optimizers import SGD, Adam
 import numpy as np
 import matplotlib.pyplot as plt 
 import math as mt
-
-
-# In[2]:
-
 
 loss_tracker = keras.metrics.Mean(name="loss")
 
@@ -34,10 +25,6 @@ class Function(keras.Model):
         loss_tracker.update_state(loss)
 
         return {"loss": loss_tracker.result()}
-
-
-# In[3]:
-
 
 class SinTransform(tf.keras.layers.Layer):
     def __init__(self, num_outputs):
@@ -61,10 +48,6 @@ class SinTransform(tf.keras.layers.Layer):
         modes = tf.math.sin(args)
         return tf.tensordot(modes,self.kernel,1)
 
-
-# In[4]:
-
-
 inputs = keras.Input(shape=(1,))
 x = SinTransform(10)(inputs)
 model = Function(inputs=inputs,outputs=x)
@@ -73,10 +56,6 @@ model.compile(optimizer=SGD(learning_rate=0.1), metrics=['loss'])
 
 x=tf.linspace(-1,1,100)
 history = model.fit(x,epochs=50,verbose=1)
-
-
-# In[5]:
-
 
 x_testv = tf.linspace(-1,1,100)
 a=model.predict(x_testv)
